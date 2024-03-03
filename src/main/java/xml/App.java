@@ -50,6 +50,7 @@ public class App {
     for (int i = 1; i < employees.size(); i++) {
       AccountingController firstEmployee = employees.get(i);
       Accounting res = firstEmployee.toAccounting(acc);
+      System.out.println("dwdwdw1  " + res.getId());
       team.createAccounting(res);
     }
     

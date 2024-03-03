@@ -23,6 +23,7 @@ public class AccountingService {
     
     @Transactional
     public Accounting createAccounting(Accounting acc) {
+            System.out.println("dwdwdw2  " + acc.getId());
             return repository.save(acc);
         }
 }
