@@ -1,6 +1,6 @@
 package service;
 
-import repository.AccountingRepository;
+import repository.BTIRepository;
 
 import javax.annotation.Resource;
 
@@ -8,21 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import  org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
-import model.Accounting;
+import model.BTI;
 
 @Service
-public class AccountingService {
-
+public class BTIService {
     @Resource
-    private final AccountingRepository repository;
+    private final BTIRepository repository;
 
     @Autowired
-    public AccountingService(AccountingRepository repository) {
+    public BTIService(BTIRepository repository) {
         this.repository = repository;
         }
     
     @Transactional
-    public Accounting createAccounting(Accounting acc) {
+    public BTI createBTI(BTI acc) {
             return repository.save(acc);
         }
 }

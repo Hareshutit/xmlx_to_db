@@ -22,8 +22,10 @@ import com.poiji.option.PoijiOptions;
 
 import controller.AccountingController;
 import service.AccountingService;
+import service.BTIService;
+import service.ResultService;
 import model.Accounting;
-
+import model.BTI;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "repository")
@@ -31,11 +33,13 @@ import model.Accounting;
 @ComponentScan(basePackages = { "repository", "service"})
 public class App {
   
-  private final AccountingService service;
+  private final AccountingService serviceACC;
+  private final BTIService serviceBTI;
   
   @Autowired
-  public App(AccountingService service) {
-    this.service = service;
+  public App(AccountingService serviceACC, BTIService serviceBTI) {
+    this.serviceACC = serviceACC;
+    this.serviceBTI = serviceBTI;
     }
   
   public static void main(String[] args) throws FileNotFoundException {
@@ -46,13 +50,11 @@ public class App {
     List<AccountingController> employees = Poiji.fromExcel(stream, PoijiExcelType.XLSX, AccountingController.class, options);
     ApplicationContext ctx =  SpringApplication.run(App.class, args);
     AccountingService team = ctx.getBean(AccountingService.class);
-    Accounting acc = new Accounting();
     for (int i = 1; i < employees.size(); i++) {
+      Accounting acc = new Accounting();
       AccountingController firstEmployee = employees.get(i);
-      Accounting res = firstEmployee.toAccounting(acc);
-      System.out.println("dwdwdw1  " + res.getId());
+      Accounting res = firstEmployee.toAccounting(acc); // Снова, предполагается что это должно быть внутри цикла
       team.createAccounting(res);
-    }
-    
+  }
   }
 }

@@ -8,6 +8,8 @@ import java.util.Random;
 import com.poiji.annotation.ExcelCellName;
 import com.poiji.annotation.ExcelSheet;
 import model.Accounting;
+import model.BTI;
+import model.NSISTATE;
 
 @FunctionalInterface
 interface Generater<T> {
@@ -46,6 +48,10 @@ public class AccountingController {
   BigDecimal block_level;
 
   BigDecimal working_uspd_state_exist;
+
+  BigDecimal state_id;
+
+  LocalDate  state_date;
 
   private static LocalDate generateLocalDate() {
     // Определяем начальную и конечную даты интервала
@@ -117,32 +123,50 @@ public class AccountingController {
     Generater<LocalDate> genLocDat = () -> generateLocalDate();
 
     id = getValue(id, genBigDec);
-    System.out.println("dwdwdw  " + id);
+    System.out.println(id+ ")"  );
     acc.setId(id);
 
     reg_number = getValue(reg_number, genStr);
+    System.out.println(reg_number+ ")");
     acc.setReg_number(reg_number);
 
     address_id = getValue(address_id, genBigDec);
-    acc.setAddress_id(address_id);
+    System.out.println(address_id+ ")");
+    BTI buf = new BTI();
+    buf.setId(address_id);
+    acc.setAddress_id(buf);
 
     address_info = getValue(address_info, genStr);
+    System.out.println(address_info+ ")");
     acc.setAddress_info(address_info);
 
     address_desc = getValue(address_desc, genStr);
+    System.out.println(address_desc+ ")");
     acc.setAddress_desc(address_desc);
     
     description = getValue(description, genStr);
+    System.out.println(description+ ")");
     acc.setDescription(description);
 
     created = getValue(created, genLocDat);
+    System.out.println(created+ ")");
     acc.setCreated(created);
 
     contract_num = getValue(contract_num, genStr);
+    System.out.println(contract_num+ ")");
     acc.setContract_num(contract_num);
 
     heat_station = getValue(heat_station, genStr);
+    System.out.println(heat_station + ")");
     acc.setHeat_station(heat_station);
+
+    state_id = getValue(state_id, genBigDec);
+    System.out.println(id+ ")"  );
+    acc.setState_id(new NSISTATE());
+
+    state_date = getValue(state_date, genLocDat);
+    System.out.println(state_date+ ")");
+    acc.setState_date(state_date);
 
     return acc;
   }

@@ -9,32 +9,31 @@ import com.poiji.annotation.ExcelCellName;
 
 import java.time.LocalDate;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 @Entity
 @Table(name = "MEASURE_OBJECT")
 public class Accounting {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ID",nullable=false)
   BigDecimal id;
 
   @Column(name = "REG_NUMBER", length = 1024)
   String reg_number;
 
-  @Column(name = "ADDRESS_ID")
-  BigDecimal address_id;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "ADDRESS_ID", nullable = false)
+  BTI address_id;
 
   @Column(name = "ADDRESS_INFO")
   String address_info;
 
-  @Column(name ="ADDRESS_DESC")
+  @Column(name ="ADDRESS_DESC", nullable = false)
   String address_desc;
 
   @Column(name ="DESCRIPTION")
   String description;
 
-  @Column(name ="CREATED")
+  @Column(name ="CREATED", nullable = false)
   LocalDate   created;
 
   @Column(name ="CONTRACT_NUM")
@@ -42,14 +41,14 @@ public class Accounting {
 
   @Column(name ="HEAT_STATION")
   String heat_station;
-  
-  @Column(name = "BLOCK_LEVEL")
-  BigDecimal block_level;
 
-  @Column(name = "WORKING_USPD_STATE_EXIST")
-  BigDecimal working_uspd_state_exist;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "STATE_ID", nullable = false)
+  NSISTATE state_id;
 
-  
+  @Column(name ="STATE_DATE", nullable = false)
+  LocalDate   state_date;
+
   public BigDecimal getId() {
     return id;
   }
@@ -70,12 +69,12 @@ public class Accounting {
   }
 
 
-  public BigDecimal getAddress_id() {
+  public BTI getAddress_id() {
     return address_id;
   }
 
 
-  public void setAddress_id(BigDecimal address_id) {
+  public void setAddress_id(BTI address_id) {
     this.address_id = address_id;
   }
 
@@ -139,30 +138,25 @@ public class Accounting {
     this.heat_station = heat_station;
   }
 
+  
 
-  public BigDecimal getBlock_level() {
-    return block_level;
+
+  public LocalDate getState_date() {
+    return state_date;
   }
 
 
-  public void setBlock_level(BigDecimal block_level) {
-    this.block_level = block_level;
+  public void setState_date(LocalDate state_date) {
+    this.state_date = state_date;
   }
 
 
-  public BigDecimal getWorking_uspd_state_exist() {
-    return working_uspd_state_exist;
-  }
 
 
-  public void setWorking_uspd_state_exist(BigDecimal working_uspd_state_exist) {
-    this.working_uspd_state_exist = working_uspd_state_exist;
-  }
 
-
-  public Accounting(BigDecimal id, String reg_number, BigDecimal address_id, String address_info, String address_desc,
-      String description, LocalDate created, String contract_num, String heat_station, BigDecimal block_level,
-      BigDecimal working_uspd_state_exist) {
+  public Accounting(BigDecimal id, String reg_number, BTI address_id, String address_info, String address_desc,
+      String description, LocalDate created, String contract_num, String heat_station, NSISTATE state_id,
+      LocalDate state_date) {
     this.id = id;
     this.reg_number = reg_number;
     this.address_id = address_id;
@@ -172,8 +166,8 @@ public class Accounting {
     this.created = created;
     this.contract_num = contract_num;
     this.heat_station = heat_station;
-    this.block_level = block_level;
-    this.working_uspd_state_exist = working_uspd_state_exist;
+    this.state_id = state_id;
+    this.state_date = state_date;
   }
 
 
@@ -187,8 +181,18 @@ public class Accounting {
   this.created = null;
   this.contract_num = null;
   this.heat_station = null;
-  this.block_level = new BigDecimal(0);
-  this.working_uspd_state_exist = new BigDecimal(1);
+  this.state_id = null;
+  this.state_date = null;
 }
+
+
+  public NSISTATE getState_id() {
+    return state_id;
+  }
+
+
+  public void setState_id(NSISTATE state_id) {
+    this.state_id = state_id;
+  }
 
 }
