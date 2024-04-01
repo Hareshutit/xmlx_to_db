@@ -20,7 +20,7 @@ public class Accounting {
   @Column(name = "REG_NUMBER", length = 1024)
   String reg_number;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "ADDRESS_ID", nullable = false)
   BTI address_id;
 

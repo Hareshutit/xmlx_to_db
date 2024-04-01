@@ -17,8 +17,6 @@ public class BTI {
   @Column(name = "PARENT_ID")
   BigDecimal parent_id;
 
-  @OneToOne(mappedBy = "address_id")
-  Accounting acc;
 
   public BigDecimal getId() {
       return id;
